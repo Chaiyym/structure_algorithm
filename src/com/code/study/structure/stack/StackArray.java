@@ -1,12 +1,12 @@
 package com.code.study.structure.stack;
 
 /**
- * 基于数组的栈实现
+ * 基于数组的栈简单实现
  *
  * @author chaiyym
  * @createTime 2021/6/30 16:49
  */
-public class Array implements Stack {
+public class StackArray implements Stack {
     /**
      * 数组的默认容量
      */
@@ -30,7 +30,7 @@ public class Array implements Stack {
     /**
      * 默认数组声明
      */
-    public Array() {
+    public StackArray() {
         this(CAPACITY);
     }
 
@@ -39,7 +39,7 @@ public class Array implements Stack {
      *
      * @param capacity 默认数组声明
      */
-    public Array(int capacity) {
+    public StackArray(int capacity) {
         this.capacity = capacity;
         s = new Object[capacity];
     }
@@ -57,9 +57,10 @@ public class Array implements Stack {
     @Override
     public void push(Object ele) throws Exception {
         //防止数组溢出
-        if (CAPACITY >= getSize()) {
+        if (capacity < getSize()) {
             throw new Exception("栈溢出");
         }
+        s[++top] = ele;
     }
 
     @Override
@@ -67,7 +68,11 @@ public class Array implements Stack {
         if (isEmpty()) {
             throw new Exception("空栈");
         }
-        return s[top];
+        //获取栈顶元素
+        Object topEle = s[this.top];
+        //出栈
+        s[top--] = null;
+        return topEle;
     }
 
     @Override
